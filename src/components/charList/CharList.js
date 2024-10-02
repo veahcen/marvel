@@ -19,7 +19,7 @@ class CharList extends Component {
         this.updateChar();
     }
 
-    onCharLoded = (char) => {
+    onCharListLoded = (char) => {
         this.setState({
             char,
             loading: false
@@ -36,7 +36,7 @@ class CharList extends Component {
     updateChar = () => {
         this.marvelService
             .getAllCaracters()
-            .then(this.onCharLoded)
+            .then(this.onCharListLoded)
             .catch(this.onError);
     }
 
@@ -59,7 +59,20 @@ class CharList extends Component {
 
 const View = ({char}) => {
     const listCaracters = char.map(item => {
-        return <Character key={item.id} name={item.name} thumbnail={item.thumbnail} />
+
+        let imgStyle = {'objectFit' : 'cover'};
+        if (item.thumbnail.indexOf("image_not_available") >= 0) {
+            imgStyle = {'objectFit' : 'unset'};
+        }
+
+        return (
+            <li 
+                className="char__item"
+                key={item.id}>
+                    <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+                    <div className="char__name">{item.name}</div>
+            </li>
+        )
     })
 
     return (
@@ -68,14 +81,4 @@ const View = ({char}) => {
         </ul>
     )
 }
-
-const Character = ({name, thumbnail}) => {
-    return (
-        <li className="char__item">
-            <img src={thumbnail} alt="abyss"/>
-            <div className="char__name">{name}</div>
-        </li>
-    )
-}
-
 export default CharList;
