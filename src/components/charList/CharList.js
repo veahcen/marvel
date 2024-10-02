@@ -8,7 +8,7 @@ import './charList.scss';
 class CharList extends Component {
 
     state = {
-        char: {},
+        char: [],
         loading: true,
         error: false
     }
@@ -22,7 +22,8 @@ class CharList extends Component {
     onCharListLoded = (char) => {
         this.setState({
             char,
-            loading: false
+            loading: false,
+            error: false
         });
     }
 
@@ -40,11 +41,38 @@ class CharList extends Component {
             .catch(this.onError);
     }
 
+    renderList (arr) {
+        const listCaracters = arr.map(item => {
+
+            let imgStyle = {'objectFit' : 'cover'};
+            if (item.thumbnail.indexOf("image_not_available") >= 0) {
+                imgStyle = {'objectFit' : 'unset'};
+            }
+
+            return (
+                <li 
+                    className="char__item"
+                    key={item.id}
+                    onClick={() => this.props.onCharSelected(item.id)}>
+                        <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+                        <div className="char__name">{item.name}</div>
+                </li>
+            )
+        })
+
+        return (
+            <ul className="char__grid">
+                {listCaracters}
+            </ul>
+        )
+    }
+
     render() {
         const {char, loading, error} = this.state;
+        const items = this.renderList(char);
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View char={char}/> : null;
+        const content = !(loading || error) ? items  : null;
 
         return (
             <div className="char__list">
@@ -57,28 +85,4 @@ class CharList extends Component {
     }
 }
 
-const View = ({char}) => {
-    const listCaracters = char.map(item => {
-
-        let imgStyle = {'objectFit' : 'cover'};
-        if (item.thumbnail.indexOf("image_not_available") >= 0) {
-            imgStyle = {'objectFit' : 'unset'};
-        }
-
-        return (
-            <li 
-                className="char__item"
-                key={item.id}>
-                    <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
-                    <div className="char__name">{item.name}</div>
-            </li>
-        )
-    })
-
-    return (
-        <ul className="char__grid">
-            {listCaracters}
-        </ul>
-    )
-}
 export default CharList;
