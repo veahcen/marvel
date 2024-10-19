@@ -1,17 +1,25 @@
 {
-  "name": "marvel",
+  "name": "react-with-ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/helmet": "^4.0.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.114",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^4.0.0"
+    "react-router-dom": "^6.27.0",
+    "react-scripts": "5.0.1",
+    "scss": "^0.2.4",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,7 +46,11 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "sass": "^1.77.2"
+    "@types/react-helmet": "^6.1.11",
+    "css-loader": "^7.1.2",
+    "sass": "^1.80.3",
+    "sass-loader": "^16.0.2",
+    "scss-loader": "^0.0.1",
+    "style-loader": "^4.0.0"
   }
 }
