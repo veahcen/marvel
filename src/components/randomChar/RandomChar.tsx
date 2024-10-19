@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
+import { ITransformCharacter } from '../../types/types';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import useMarvelService from '../../services/MarvelService';
@@ -8,7 +9,7 @@ import mjolnir from '../../resources/img/mjolnir.png';
 
 const RandomChar = () => {
 
-    const [char, setChar] = useState(null);
+    const [char, setChar] = useState<null | ITransformCharacter>(null);
     const {loading, error, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
@@ -16,7 +17,7 @@ const RandomChar = () => {
         // eslint-disable-next-line
     }, [])
 
-    const onCharLoaded = (char) => {
+    const onCharLoaded = (char: ITransformCharacter) => {
         setChar(char);
     }
 
@@ -28,9 +29,9 @@ const RandomChar = () => {
     }
 
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !char) ? <View char={char} /> : null;
+    const errorMessage: React.ReactNode = error ? <ErrorMessage/> : null;
+    const spinner: React.ReactNode = loading ? <Spinner/> : null;
+    const content: React.ReactNode = !(loading || error || !char) ? <View char={char} /> : null;
 
     return (
     <div className="randomchar">
@@ -53,13 +54,13 @@ const RandomChar = () => {
 
 }
 
-const View = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki} = char;
-    const thumbnailClass = thumbnail.indexOf("image_not_available") >= 0 ? "randomchar__img-notAvalible" : "randomchar__img";
+const View: FC<{ char: ITransformCharacter }> = ({char}) => {
+    const {name, description, thumbnailImg, homepage, wiki} = char;
+    const thumbnailClass = thumbnailImg.indexOf("image_not_available") >= 0 ? "randomchar__img-notAvalible" : "randomchar__img";
 
     return (
         <div className="randomchar__block">
-            <img src={thumbnail} alt="Random character" className={thumbnailClass}/>
+            <img src={thumbnailImg} alt="Random character" className={thumbnailClass}/>
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
                 <p className="randomchar__descr">
