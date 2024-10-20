@@ -1,16 +1,21 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, FC } from 'react';
+import { ITransformCharacter } from '../../types/types';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
 import './charList.scss';
 
-const CharList = (props) => {
+interface IPropCharList {
+    onCharSelected: (id: number) => void
+}
 
-    const [charList, setCharList] = useState([]);
-    const [newItemLoading, setNewItemLoading] = useState(false);
-    const [offset, setOffset] = useState(210);
-    const [charEnded, setCharEnded] = useState(false);
+const CharList: FC <IPropCharList> = (props) => {
+
+    const [charList, setCharList] = useState<[] | ITransformCharacter[]>([]);
+    const [newItemLoading, setNewItemLoading] = useState<boolean>(false);
+    const [offset, setOffset] = useState<number>(210);
+    const [charEnded, setCharEnded] = useState<boolean>(false);
 
     const {loading, error, getAllCharacters} = useMarvelService();
 
@@ -19,7 +24,7 @@ const CharList = (props) => {
        // eslint-disable-next-line
     }, [])
 
-    const onCharListLoded = (newChar) => {
+    const onCharListLoded = (newChar: ITransformCharacter[]) => {
         let ended = false;
         if (newChar.length < 9) {
             ended = true;
@@ -31,27 +36,29 @@ const CharList = (props) => {
         setCharEnded(charEnded => ended)
     }
 
-    const onRequest = (offset, initial) => {
+    const onRequest = (offset: number, initial?: boolean) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllCharacters(offset)
             .then(onCharListLoded);
     }
 
 
-    const itemRefs = useRef([]);
+    const itemRefs = useRef<(HTMLElement | null)[]>([]);
 
-    const focusItem = (id) => {
-        itemRefs.current.forEach(item => item.classList.remove('char__item_selected'));
-        itemRefs.current[id].classList.add('char__item_selected');
-        itemRefs.current[id].focus();
+    const focusItem = (id: number) => {
+        itemRefs.current.forEach(item => item ? item.classList.remove('char__item_selected') : null);
+        if (itemRefs.current.length > 0 && itemRefs.current[id]) {
+            itemRefs.current[id]?.classList.add('char__item_selected');
+            itemRefs.current[id]?.focus();
+        }
     }
 
 
-    function renderList (arr) {
+    function renderList (arr: ITransformCharacter[]) {
         const listCaracters = arr.map((item, index) => {
 
-            let imgStyle = {'objectFit' : 'cover'};
-            if (item.thumbnail.indexOf("image_not_available") >= 0) {
+            let imgStyle: {} = {'objectFit' : 'cover'};
+            if (item.thumbnailImg.indexOf("image_not_available") >= 0) {
                 imgStyle = {'objectFit' : 'unset'};
             }
 
@@ -71,7 +78,7 @@ const CharList = (props) => {
                             focusItem(index);
                         }
                     }}>
-                        <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+                        <img src={item.thumbnailImg} alt={item.name} style={imgStyle}/>
                         <div className="char__name">{item.name}</div>
                 </li>
             )

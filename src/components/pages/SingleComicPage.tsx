@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Helmet } from "react-helmet";
+import { ITransformComic } from '../../types/types';
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
@@ -8,9 +9,13 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import AppBanner from "../appBanner/AppBanner";
 import './singleComicPage.scss';
 
-const SingleComicPage = () => {
-    const {comicId} = useParams();
-    const [comic, setComic] = useState(null);
+interface RouteParams extends Record<string, string | undefined> {
+    comicId?: string;
+}
+
+const SingleComicPage: FC = () => {
+    const {comicId} = useParams<RouteParams>();
+    const [comic, setComic] = useState<null | ITransformComic>(null);
     const {loading, error, getComic, clearError} = useMarvelService();
 
     useEffect(() => {
@@ -24,7 +29,7 @@ const SingleComicPage = () => {
             .then(onComicLoaded)
     }
 
-    const onComicLoaded = (comic) => {
+    const onComicLoaded = (comic: ITransformComic) => {
         setComic(comic);
     }
 
@@ -42,7 +47,7 @@ const SingleComicPage = () => {
     )
 }
 
-const View = ({comic}) => {
+const View: FC <{comic: ITransformComic}> = ({comic}) => {
     const {title, description, pageCount, image, language, price} = comic;
 
     return (

@@ -13,6 +13,10 @@ interface IUrl {
   url: string;
 }
 
+interface IComics {
+  items: IComic[]
+}
+
 export interface ITransformCharacter {
   id: number,
   name: string,
@@ -20,7 +24,7 @@ export interface ITransformCharacter {
   thumbnailImg: string,
   homepage: string,
   wiki: string,
-  comics: IComic[],
+  comics: IComics,
   urls: IUrl[],
   thumbnail: IThumbnail;
 }
