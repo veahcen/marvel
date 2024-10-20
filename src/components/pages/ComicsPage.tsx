@@ -1,10 +1,11 @@
+import { FC } from "react";
 import { Helmet } from "react-helmet";
 
 
 import AppBanner from '../appBanner/AppBanner'
 import ComicsList from '../comicsList/ComicsList';
 
-const ComicsPage = () => {
+const ComicsPage: FC = () => {
 
     return (
         <>

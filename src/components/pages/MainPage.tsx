@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { Helmet } from "react-helmet";
 
 import RandomChar from "../randomChar/RandomChar";
@@ -8,10 +8,10 @@ import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 
 import decoration from '../../resources/img/vision.png';
 
-const MainPage =() => {
-     const [selectenChar, setSelectenChar] = useState(null);
+const MainPage: FC =() => {
+     const [selectenChar, setSelectenChar] = useState<number | null>(null);
     
-    const onCharSelected = (id) => {
+    const onCharSelected = (id: number) => {
         setSelectenChar(id);
     }
 
@@ -27,14 +27,14 @@ const MainPage =() => {
             <ErrorBoundary>
                 <RandomChar/>
             </ErrorBoundary>
-            {/* <div className="char__content">
+            <div className="char__content">
                 <ErrorBoundary>
                     <CharList onCharSelected={onCharSelected}/>
                 </ErrorBoundary>
                 <ErrorBoundary>
                     <CharInfo charId={selectenChar}/>
                 </ErrorBoundary>
-            </div> */}
+            </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
         </>
     )

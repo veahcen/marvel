@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
+import { ITransformComic } from '../../types/types';
 
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -7,11 +8,11 @@ import Spinner from '../spinner/Spinner';
 
 import './comicsList.scss';
 
-const ComicsList = () => {
-    const [comics, setComics] = useState([]);
-    const [newComicsLoading, setNewComicsLoading] = useState(false);
-    const [offset, setOffset] = useState(210);
-    const [comicsEnded, setComicsEnded] = useState(false);
+const ComicsList: FC = () => {
+    const [comics, setComics] = useState<[] | ITransformComic[]>([]);
+    const [newComicsLoading, setNewComicsLoading] = useState<boolean>(false);
+    const [offset, setOffset] = useState<number>(210);
+    const [comicsEnded, setComicsEnded] = useState<boolean>(false);
     const {loading, error, getAllComics} = useMarvelService();
 
     useEffect(() => {
@@ -19,7 +20,7 @@ const ComicsList = () => {
         // eslint-disable-next-line
     }, [])
 
-    const onCharListLoded = (newComics) => {
+    const onCharListLoded = (newComics: ITransformComic[]) => {
         let ended = false;
         if (newComics.length < 8) {
             ended = true;
@@ -31,13 +32,13 @@ const ComicsList = () => {
         setComicsEnded(comicsEnded => ended)
     }
 
-    const onRequest = (offset, initial) => {
+    const onRequest = (offset: number, initial?: boolean) => {
         initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
         getAllComics(offset)
             .then(onCharListLoded);
     }
 
-    const renderComicsList = (comics) => {
+    const renderComicsList = (comics: ITransformComic[]) => {
         let comicsList = comics.map(item => {
 
             return (

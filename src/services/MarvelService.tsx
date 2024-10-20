@@ -36,7 +36,7 @@ const useMarvelService = () => {
         return res.data.results.map(_transformComics);
     }
 
-    const getComic = async (id: number): Promise<ITransformComic> => {
+    const getComic = async (id: string | undefined): Promise<ITransformComic> => {
 		const res = await request(`${_apiBase}comics/${id}?${_apiKey}`) as ICharacterApiResponseComics;
 		return _transformComics(res.data.results[0]);
 	};
