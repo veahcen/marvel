@@ -1,46 +1,25 @@
-# Getting Started with Create React App
+# Marvel
+Проект делает запрос на сервер и в соответствии с данными отрисовывает список из 9 героев марвел и 8 комиксов. В этих двух списках есть кнопка показать больше, которая добавит 9 героев или 8 комиксов к текущему списку. 
+При клике на героя показывает его доступную информацию. В верхней панеле можно получить героя с коротким описанием.
+При клике на комикс мы переходим на отдельную страницу комикса и просматриваем по нему информацию, также есть возможность вернуться обратно на страницу с комиксами.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Технологии
+* HTML, SCSS, JavaScript, TypeScrip, React, Хуки(useState, useEffect, useRef, useCallback, useHttp(кастомный)), Router Dom.
+* Работа с API и Git.
 
-## Available Scripts
+Для работы проекта требуется apiKey.
 
-In the project directory, you can run:
+## Инструкция по запуску
 
-### `npm start`
+1. Создайте папку и перейдите в нее
+`cd <Имя-папки>`
+2. Склонируйте репозиторий
+`git clone https://github.com/veahcen/marvel.git`
+3. Утановите все зависимости:
+`npm install`
+4. Теперь можете запускать проект:
+`npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Открыть [http://localhost:3000](http://localhost:3000) чтобы посмотреть в браузере.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm run build` - создает приложение для рабочей среды в папке "build".\
